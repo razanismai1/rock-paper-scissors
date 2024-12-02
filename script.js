@@ -63,7 +63,6 @@ function printResult(playerScore, computerScore) {
 }
 
 while (playerScore < 5 && computerScore < 5) {
-  console.clear();
   computerInput = getComputerInput();
   console.log(`Computer chose: ${computerInput}`);
 
@@ -72,6 +71,7 @@ while (playerScore < 5 && computerScore < 5) {
 
   validateOptions(playerInput, computerInput);
   printResult(playerScore, computerScore);
+  console.log('----------------------------------');
 }
 if (playerScore === 5) {
   console.log('Yeeeh...You won');
