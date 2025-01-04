@@ -2,6 +2,7 @@ const rockBtn = document.querySelector('.rock');
 const paperBtn = document.querySelector('.paper');
 const scissorsBtn = document.querySelector('.scissors');
 const optionsDiv = document.querySelector('.input-options');
+const resultDiv = document.querySelector('.display-result');
 
 const inputOptions = ['rock', 'paper', 'scissors'];
 let playerInput;
@@ -27,9 +28,11 @@ const getPlayerInput = (e) => {
   }
 };
 
+const roundResult = document.createElement('div');
+
 const validateOptions = (computerInput, playerInput) => {
   if (computerInput === playerInput) {
-    console.log('Tie: no points for anyone.');
+    roundResult.textContent = "That's a tie";
     return;
   }
 
@@ -39,20 +42,41 @@ const validateOptions = (computerInput, playerInput) => {
     (computerInput === 'scissors' && playerInput === 'paper')
   ) {
     computerScore++;
-    console.log('Computer wins this round!');
+    roundResult.textContent = 'Computer won this round!';
   } else {
     playerScore++;
-    console.log('You win this round!');
+    roundResult.textContent = 'You won this round!';
   }
 };
 
-function printResult(playerScore, computerScore, computerInput) {
-  console.log(`Computer chose: ${computerInput}`);
-  console.log(`You chose: ${playerInput}`);
-  console.log(' ');
-  console.log(`Player Score: ${playerScore}`);
-  console.log(`Computer Score: ${computerScore}`);
-  console.log('----------------------------------');
+function reset() {
+  playerScore = 0;
+  computerScore = 0;
+}
+function checkUI() {
+  reset();
+  resultDiv.innerHTML = '<h2>Results</h2>';
+  resultDiv.append(displayPlayerScore);
+  resultDiv.append(displayComputerScore);
+  resultDiv.appendChild(roundResult);
+  displayResult();
+  roundResult.textContent = '';
+}
+
+const displayPlayerScore = document.createElement('div');
+const displayComputerScore = document.createElement('div');
+
+function displayResult() {
+  displayPlayerScore.textContent = `Player Score: ${playerScore}`;
+  displayComputerScore.textContent = `Computer Score: ${computerScore}`;
+
+  if (playerScore === 5) {
+    resultDiv.innerHTML += '<div>You win</div>';
+    setTimeout(() => checkUI(), 2000);
+  } else if (computerScore === 5) {
+    resultDiv.innerHTML += '<div>Computer Wins</div>';
+    setTimeout(() => checkUI(), 2000);
+  }
 }
 
 function playRound(e) {
@@ -62,8 +86,8 @@ function playRound(e) {
   let computerInput = getComputerInput();
 
   validateOptions(computerInput, playerInput);
-  printResult(playerScore, computerScore, computerInput);
+  displayResult();
 }
-
 // Event Listeners
+checkUI();
 optionsDiv.addEventListener('click', playRound);

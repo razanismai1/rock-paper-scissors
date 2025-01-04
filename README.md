@@ -1,20 +1,37 @@
-# Rock, Paper, Scissors Game
+# Rock Paper Scissors Game
 
-A simple implementation of the classic Rock, Paper, Scissors game using JavaScript. The player competes against the computer to reach 5 points first. This project was created as part of my journey to learn JavaScript. The first version can only be played on the console.
+A simple **Rock Paper Scissors** game built with HTML, CSS, and JavaScript.
 
 ## Features
 
-- Player vs. computer gameplay.
-- Input validation to ensure the player chooses a valid option.
-- Displays the scores of both the player and the computer after each round.
-- The game ends when either the player or the computer reaches 5 points.
+- **Interactive UI**: Clickable buttons for Rock, Paper, and Scissors.
+- **Dynamic Scorekeeping**: Tracks both player and computer scores.
+- **Result Display**: Shows round results and overall winner.
+- **Game Reset**: Automatically resets when a player or computer scores 5 points.
+
+## Recent Updates
+
+- Added a basic UI with buttons for user input.
+- Implemented score tracking and displayed results dynamically on the screen.
+- Fixed UI issues to ensure proper display of results and scores.
+- Ensured proper round result updates below the results heading.
 
 ## How to Play
 
-1. When prompted, enter one of the following options:
-   - `1` for "rock"
-   - `2` for "paper"
-   - `3` for "scissors"
-2. The computer will randomly choose one of the three options.
-3. The result will be displayed, and the score will be updated.
-4. The game continues until either the player or the computer reaches 5 points.
+1. Choose Rock, Paper, or Scissors by clicking the respective button.
+2. The computer will randomly select an option.
+3. The winner of each round is determined based on the classic rules:
+   - Rock beats Scissors
+   - Scissors beat Paper
+   - Paper beats Rock
+4. First to reach 5 points wins the game!
+
+## Future Improvements
+
+- Add animations for better user experience.
+- Implement a start screen and replay option.
+- Make it responsive for mobile devices.
+
+---
+
+Feel free to contribute or fork the repository to add your own features! 🚀
