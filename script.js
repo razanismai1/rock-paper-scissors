@@ -1,4 +1,12 @@
+const rockBtn = document.querySelector('.rock');
+const paperBtn = document.querySelector('.paper');
+const scissorsBtn = document.querySelector('.scissors');
+const optionsDiv = document.querySelector('.input-options');
+
 const inputOptions = ['rock', 'paper', 'scissors'];
+let playerInput;
+let playerScore = 0,
+  computerScore = 0;
 
 const getComputerInput = () => {
   const computerInput =
@@ -6,75 +14,56 @@ const getComputerInput = () => {
   return computerInput;
 };
 
-const getPlayerInput = () => {
-  let playerInput = +prompt(
-    'Enter 1 for "rock"\nEnter 2 for "paper"\nEnter 3 for "scissors"'
-  );
-  if (playerInput != 1 && playerInput != 2 && playerInput != 3) {
-    console.log('invalid input');
-    return;
+const getPlayerInput = (e) => {
+  if (e.target === rockBtn) {
+    playerInput = inputOptions[0];
+  } else if (e.target === paperBtn) {
+    playerInput = inputOptions[1];
+  } else if (e.target === scissorsBtn) {
+    playerInput = inputOptions[2];
   } else {
-    playerInput = inputOptions[playerInput - 1];
-    return playerInput;
+    playerInput = null;
+    return;
   }
 };
-
-let playerScore = 0,
-  computerScore = 0;
 
 const validateOptions = (computerInput, playerInput) => {
-  switch (computerInput) {
-    case 'rock':
-      if (computerInput === playerInput) {
-        console.log('tie: no points for any of you');
-      } else if (playerInput === 'scissors') {
-        computerScore++;
-      } else {
-        //playerInput === 'paper'
-        playerScore++;
-      }
-      break;
+  if (computerInput === playerInput) {
+    console.log('Tie: no points for anyone.');
+    return;
+  }
 
-    case 'paper':
-      if (computerInput === playerInput) {
-        console.log('tie: no points for any of you');
-      } else if (playerInput === 'rock') {
-        computerScore++;
-      } else {
-        playerScore++;
-      }
-      break;
-
-    case 'scissors':
-      if (computerInput === playerInput) {
-        console.log('tie: no points for any of you');
-      } else if (playerInput === 'paper') {
-        computerScore++;
-      } else {
-        playerScore++;
-      }
-      break;
+  if (
+    (computerInput === 'rock' && playerInput === 'scissors') ||
+    (computerInput === 'paper' && playerInput === 'rock') ||
+    (computerInput === 'scissors' && playerInput === 'paper')
+  ) {
+    computerScore++;
+    console.log('Computer wins this round!');
+  } else {
+    playerScore++;
+    console.log('You win this round!');
   }
 };
 
-function printResult(playerScore, computerScore) {
+function printResult(playerScore, computerScore, computerInput) {
+  console.log(`Computer chose: ${computerInput}`);
+  console.log(`You chose: ${playerInput}`);
+  console.log(' ');
   console.log(`Player Score: ${playerScore}`);
   console.log(`Computer Score: ${computerScore}`);
-}
-
-while (playerScore < 5 && computerScore < 5) {
-  computerInput = getComputerInput();
-  console.log(`Computer chose: ${computerInput}`);
-
-  playerInput = getPlayerInput();
-  console.log(`You chose: ${playerInput}`);
-
-  validateOptions(playerInput, computerInput);
-  printResult(playerScore, computerScore);
   console.log('----------------------------------');
 }
-if (playerScore === 5) {
-  console.log('Yeeeh...You won');
-} else if (computerScore === 5) {
-  console.log('sheesh...you lost with a computer');
+
+function playRound(e) {
+  getPlayerInput(e);
+  if (playerInput === null) return;
+
+  let computerInput = getComputerInput();
+
+  validateOptions(computerInput, playerInput);
+  printResult(playerScore, computerScore, computerInput);
 }
+
+// Event Listeners
+optionsDiv.addEventListener('click', playRound);
